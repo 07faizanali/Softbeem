@@ -163,11 +163,11 @@ const Navbar = () => {
                                             onClick={() => service.path ? window.location.href = service.path : scrollToSection("/#services")}
                                             className="flex items-start gap-3 p-2 rounded-md hover:bg-zinc-800 transition-colors group w-full"
                                           >
-                                            <div className="text-primary mt-1">
-                                              <div className="h-5 w-5">{React.createElement(service.icon)}</div>
+                                            <div className="text-primary flex items-center">
+                                              <div className="h-6 w-6">{React.createElement(service.icon)}</div>
                                             </div>
                                             <div className="text-left flex-1">
-                                              <h4 className="text-white group-hover:text-primary transition-colors flex items-center justify-between">
+                                              <h4 className="text-[15px] text-white group-hover:text-primary transition-colors flex items-center justify-between">
                                                 {service.title}
                                                 {service.submenu && <ChevronRight className="h-4 w-4 ml-2" />}
                                               </h4>
@@ -264,14 +264,14 @@ const Navbar = () => {
           <div className="md:hidden">
             <Button
               variant="ghost"
-              size="icon"
               onClick={toggleMobileMenu}
               aria-label="Toggle Menu"
+              className="p-3 hover:bg-green-500/10 rounded-lg border border-green-500/30"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-white" />
+                <X className="h-8 w-8 text-white" />
               ) : (
-                <Menu className="h-6 w-6 text-white" />
+                <Menu className="h-8 w-8 text-white" />
               )}
             </Button>
           </div>
@@ -291,29 +291,26 @@ const Navbar = () => {
             <div className="flex items-center justify-center gap-4 p-4 border-b border-green-500/10">
               <a 
                 href="tel:+911169310715" 
-                className="flex items-center justify-center p-2.5 rounded-lg bg-green-500/10 hover:bg-green-500/20 text-green-400 transition-all flex-1 border border-green-500/30"
+                className="flex items-center justify-center w-12 h-12 rounded-lg bg-green-500/10 hover:bg-green-500/20 text-green-400 transition-all border border-green-500/30"
               >
-                <PhoneCall className="w-5 h-5" />
+                <PhoneCall className="w-6 h-6" />
               </a>
               <a 
                 href="https://wa.me/911169310715"
                 target="_blank"
                 rel="noopener noreferrer" 
-                className="flex items-center justify-center p-2.5 rounded-lg bg-green-500/10 hover:bg-green-500/20 text-green-400 transition-all flex-1 border border-green-500/30"
+                className="flex items-center justify-center w-12 h-12 rounded-lg bg-green-500/10 hover:bg-green-500/20 text-green-400 transition-all border border-green-500/30"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                 </svg>
               </a>
-              <Button 
+              <button 
                 onClick={() => window.location.href = '/schedule'} 
-                variant="outline" 
-                className="flex items-center justify-center p-2 md:px-4"
-                size="icon"
+                className="flex items-center justify-center w-14 h-12 rounded-lg bg-green-500/10 hover:bg-green-500/20 text-green-400 transition-all border border-green-500/30"
               >
-                <Calendar className="h-5 w-5 md:mr-2" />
-                <span className="hidden md:inline">Schedule Meeting</span>
-              </Button>
+                <Calendar className="w-8 h-8" />
+              </button>
             </div>
             {/* Mobile Nav Links */}
            <div className="flex flex-col space-y-0 px-4 py-2 pb-20 w-full">
@@ -363,30 +360,33 @@ const Navbar = () => {
                                 }
                               }}
                               className="flex items-start gap-3 p-2 rounded-md hover:bg-zinc-800 transition-colors group w-full"
-                              className="flex items-start gap-3 p-2 rounded-md hover:bg-zinc-800 transition-colors group w-full"
                             >
-                              <div className="text-primary mt-1">
-                                <div className="h-5 w-5">{React.createElement(service.icon)}</div>
+                              <div className="text-primary">
+                                <div className="h-6 w-6">{React.createElement(service.icon)}</div>
                               </div>
                               <div className="text-left flex-1">
                                 <h4 className="text-white group-hover:text-primary transition-colors flex items-center justify-between">
                                   {service.title}
                                   {service.submenu && (
-                                    <span className="ml-2 bg-green-500/10 px-2 rounded">
-                                      {isSubmenuOpen ? '−' : '+'}
+                                    <span className="ml-2 bg-green-500/10 p-1 rounded">
+                                      <ChevronDown className="h-4 w-4" />
                                     </span>
                                   )}
                                 </h4>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  {service.features[0]}
+                                </p>
                               </div>
                             </button>
 
-                            {service.submenu && isSubmenuOpen && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="pl-6 mt-2 space-y-2 origin-top bg-zinc-800/50 rounded-lg py-2"
-                              >
+                            <AnimatePresence>
+                              {service.submenu && (
+                                <motion.div
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: "auto" }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  className="pl-6 mt-2 space-y-2 origin-top bg-zinc-800/50 rounded-lg py-2"
+                                >
                                 {Array.isArray(service.submenu) && service.submenu.map((subItem, subIdx) => {
                                   if (!subItem || typeof subItem !== 'object') return null;
                                   return (
@@ -411,6 +411,7 @@ const Navbar = () => {
                                 })}
                               </motion.div>
                             )}
+                          </AnimatePresence>
                           </div>
                         );
                       })}

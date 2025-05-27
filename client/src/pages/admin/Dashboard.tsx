@@ -29,6 +29,44 @@ const Dashboard = () => {
   const [blogs, setBlogs] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [activeTab, setActiveTab] = useState('overview');
+
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch('/api/careers/jobs');
+      if (response.ok) {
+        const jobsData = await response.json();
+        setJobs(jobsData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch jobs:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch jobs",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDeleteJob = async (jobId: string) => {
+    try {
+      const response = await fetch(`/api/careers/jobs/${jobId}`, {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Job deleted successfully",
+        });
+        fetchJobs();
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete job",
+        variant: "destructive"
+      });
+    }
+  };
   const [editBlog, setEditBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [meetings, setMeetings] = useState([]);
@@ -70,28 +108,7 @@ const Dashboard = () => {
     }
   };
 
-  const handleDeleteJob = async (jobId) => {
-    try {
-      const response = await fetch(`/api/careers/jobs/${jobId}`, {
-        method: 'DELETE'
-      });
 
-      if (response.ok) {
-        setJobs(jobs.filter(job => job._id !== jobId));
-        toast({
-          title: "Job Deleted",
-          description: "The job posting has been removed.",
-        });
-      }
-    } catch (error) {
-      console.error('Error deleting job:', error);
-      toast({
-        title: "Error",
-        description: "Failed to delete job. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
   const { toast } = useToast();
 
   useEffect(() => {
@@ -102,7 +119,7 @@ const Dashboard = () => {
           navigate('/admin/login');
           return;
         }
-        await fetchData();
+        await Promise.all([fetchData(), fetchJobs()]);
         setLoading(false);
       } catch (error) {
         console.error('Auth error:', error);
@@ -238,9 +255,9 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#000510] text-white">
       <div className="max-w-[1400px] mx-auto p-6 pt-20"> {/* Added padding to push content below header */}
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 bg-blue-950/30 p-6 rounded-xl border border-blue-500/20 backdrop-blur-sm sticky top-0 z-10"> {/* Added sticky class for fixed header */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8 bg-blue-950/30 p-4 sm:p-6 rounded-xl border border-blue-500/20 backdrop-blur-sm sticky top-0 z-10">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
               Admin Dashboard
             </h1>
             <div className="flex items-center gap-2 text-blue-400 mt-2">
@@ -271,11 +288,39 @@ const Dashboard = () => {
           </TabsList>
 
           <TabsContent value="jobs">
-            <Card className="p-6 bg-blue-950/30 border-blue-500/20 mb-6">
-              <h2 className="text-2xl font-bold mb-6">Post New Job</h2>
-              <form onSubmit={handleJobSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
+            <div className="grid gap-6">
+              <Card className="p-6 bg-blue-950/30 border-blue-500/20">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-bold">Current Job Listings</h2>
+                </div>
+                <div className="grid gap-4">
+                  {jobs.map((job: any) => (
+                    <div key={job._id} className="bg-blue-900/20 p-4 rounded-lg border border-blue-500/20">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">{job.title}</h3>
+                          <p className="text-sm text-blue-400">{job.department}</p>
+                          <p className="text-sm text-gray-400">{job.location} • {job.type}</p>
+                        </div>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDeleteJob(job._id)}
+                        >
+                          <TrashIcon className="h-4 w-4 mr-2" />
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              <Card className="p-6 bg-blue-950/30 border-blue-500/20">
+                <h2 className="text-2xl font-bold mb-6">Post New Job</h2>
+                <form onSubmit={handleJobSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <Input
                     name="title"
                     placeholder="Job Title"
                     className="bg-blue-900/20 border-blue-500/20"
@@ -288,7 +333,7 @@ const Dashboard = () => {
                     required
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <Input
                     name="location"
                     placeholder="Location"
@@ -339,6 +384,7 @@ const Dashboard = () => {
                   </div>
                 </Card>
               ))}
+            </div>
             </div>
           </TabsContent>
 
@@ -424,7 +470,7 @@ const Dashboard = () => {
                 {editBlog ? 'Edit Blog Post' : 'Create New Blog Post'}
               </h2>
               <form onSubmit={handleBlogSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <Input
                     name="title"
                     placeholder="Blog Title"
