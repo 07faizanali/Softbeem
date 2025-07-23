@@ -69,11 +69,9 @@ const Navbar = () => {
   };
 
   // Mobile Submenu Handler
-  const handleMobileSubmenuToggle = (title: string) => {
-    setOpenMobileSubmenus(prev =>
-      prev.includes(title)
-        ? prev.filter(t => t !== title)
-        : [...prev, title]
+   const handleMobileSubmenuToggle = (title: string) => {
+    setOpenMobileSubmenus((prev) =>
+      prev.includes(title) ? [] : [title]
     );
   };
 

@@ -10,7 +10,7 @@ import {
   Scale,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import JarvisGlobe from "./JarvisGlobe";
+// import JarvisGlobe from "./JarvisGlobe";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Popover,
@@ -205,7 +205,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className={`relative flex justify-center ${isMobile ? 'mt-8 mb-16' : 'hidden lg:block'}`}
           >
-            <JarvisGlobe size={isMobile ? (window.innerWidth < 360 ? 280 : 340) : 480} />
+            
           </motion.div>
         </div>
       </div>

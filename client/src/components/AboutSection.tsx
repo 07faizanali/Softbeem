@@ -34,7 +34,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-12 bg-background">
+    <section id="about" className="py-12 bg-background ">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           variants={staggerContainer}
@@ -54,7 +54,7 @@ const AboutSection = () => {
             />
             <motion.div
               variants={slideIn("right", "tween", 0.4, 1)}
-              className="absolute -bottom-10 -right-10 bg-primary text-white p-6 rounded-lg shadow-lg max-w-xs hidden md:block"
+              className="absolute -bottom-16 -right-6 bg-primary text-white p-6 rounded-lg shadow-lg max-w-xs hidden md:block"
             >
               <p className="text-lg font-semibold mb-2">Our Vision</p>
               <p className="text-sm opacity-80">

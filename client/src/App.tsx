@@ -120,11 +120,14 @@ import GSTNilReturn from "./pages/services/legal/GstNilReturnFiling";
 import GSTAnnualReturn from "./pages/services/legal/GstAnnualReturn";
 import MerchantExporterGST from "./pages/services/legal/GstMerchantExporter";
 
+import ScrollToTop from "@/components/ScrollToTop";
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex flex-col min-h-screen">
         <Navbar />
+        <ScrollToTop />
         <main className="flex-grow pt-20 md:pt-24 pb-16">
           <AIChatBot />
           <Routes>

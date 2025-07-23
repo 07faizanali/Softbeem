@@ -15,7 +15,7 @@ const About = () => {
   return (
     <main className="min-h-screen bg-background about-page">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-8 md:pt-10 [margin-top:-6rem]">
+      <section className="relative min-h-[105vh] flex items-center overflow-hidden pt-8  md:pt-10 [margin-top:-5rem]">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
@@ -273,8 +273,8 @@ const About = () => {
       </section>
 
       {/*  Showcase Section */}
-      <section className="py-10 bg-zinc-900"> {/*Reduced padding */}
-        <div className="container mx-auto px-4">
+      <section className="py-10 pb-5 max-w-[1240px] w-full mx-auto rounded-lg mb-[-95px] bg-zinc-900 "> {/*Reduced padding */}
+        <div className="container  px-4 ">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
